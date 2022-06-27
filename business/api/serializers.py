@@ -111,7 +111,7 @@ class SendPasswordResetEmailViewSerializer(serializers.Serializer):
             print("Encoded UID",uid)
             token=PasswordResetTokenGenerator().make_token(user)
             print("token",token)
-            link=f'http://localhost:8000/reset/user/'+uid+'/'+token
+            link=f'http://65.2.10.226/reset/user/'+uid+'/'+token
             print("password reset link",link)
             # Send Email
             body="Click the following link to reset your password "+link
