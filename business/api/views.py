@@ -66,7 +66,7 @@ class RegisterUser(generics.CreateAPIView):
             print("Encoded UID",uid)
             token=PasswordResetTokenGenerator().make_token(user_encode_obj)
             print("token",token)
-            link=f'http://localhost:8000/verifyemail/user/'+uid+'/'+token
+            link=f'http://65.2.10.226/verifyemail/user/'+uid+'/'+token
             print("verification email",link)
             # Send Email
             body="Click the following link to verify your email "+link
@@ -91,7 +91,7 @@ class RegisterUser(generics.CreateAPIView):
             print("Encoded UID",uid)
             token=PasswordResetTokenGenerator().make_token(user_encode_obj)
             print("token",token)
-            link='http://localhost:8000/verifyemail/user/'+uid+'/'+token
+            link='http://65.2.10.226/verifyemail/user/'+uid+'/'+token
             print("verification email",link)
             # Send Email
             body="Click the following link to verify your email "+link
