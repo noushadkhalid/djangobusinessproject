@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="{% static 'manifest.json' %}" />
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'apple-icon.png' %}" />
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet"
+        href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="{% static 'plugins/jqvmap/jqvmap.min.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
+    <!-- summernote -->
+    <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
+    <title>Light Bootstrap Dashboard - React</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60"
+                width="60">
+        </div>
+
+        {% include 'pageparts/header.html' %}
+
+        {% include 'pageparts/sidebar.html' %}
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <div class="alert alert-warning alert-dismissible fade" role="alert" id="bootstrap_error_alert"
+                style="display: none;">
+                Please upload a valid Image
+            </div>
+            <div class="alert alert-success alert-dismissible fade" role="alert" id="bootstrap_success_alert"
+                style="display: none;">
+                Your Classified Created Successfully
+            </div>
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Create Classifieds</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                                <li class="breadcrumb-item active">Classifieds Form</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Creat Classifieds</h3>
+                                </div>
+                                <form method="post" enctype="multipart/form-data" action="/api/classifieds/">
+                                    {% csrf_token %}
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Enter title</label>
+                                            <input type="text" class="form-control" id="exampleInputTitle"
+                                                placeholder="Enter Title" name="title" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputDescription">Enter Description</label>
+                                            <input type="text" class="form-control" id="exampleInputDescription"
+                                                placeholder="Enter Description" name="description" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Email address</label>
+                                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                                placeholder="Enter email" name="email" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Phone Number</label>
+                                            <input type="tel" class="form-control" id="exampleInputDescription"
+                                                placeholder="0332-3272-719" name="phone_number"
+                                                pattern="[0-9]{4}-[0-9]{4}-[0-9]{3}" 
+                                                required>
+                                            <small>Format: 0332-3272-719</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Enter Category</label>
+                                            <select class="form-control select2" style="width: 100%;" name="category"
+                                                required>
+                                                {% for obj_ in category_objs %}
+                                                <option>{{obj_.title}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputFile">Upload Image</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="exampleInputFile"
+                                                        name="image_field">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose
+                                                        Image</label>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">Upload</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        {% include 'pageparts/footer.html' %}
+    </div>
+    {% include 'pageparts/scriptcontainer.html' %}
+</body>
+
+</html>
